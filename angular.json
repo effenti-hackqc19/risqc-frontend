@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "exploi-frontend": {
+    "risqc-frontend": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/exploi-frontend",
+            "outputPath": "dist/risqc-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "exploi-frontend:build"
+            "browserTarget": "risqc-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "exploi-frontend:build:production"
+              "browserTarget": "risqc-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "exploi-frontend:build"
+            "browserTarget": "risqc-frontend:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "exploi-frontend-e2e": {
+    "risqc-frontend-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "exploi-frontend:serve"
+            "devServerTarget": "risqc-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "exploi-frontend:serve:production"
+              "devServerTarget": "risqc-frontend:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "exploi-frontend"
+  "defaultProject": "risqc-frontend"
 }
