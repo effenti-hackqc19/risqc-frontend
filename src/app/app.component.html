@@ -7,18 +7,12 @@
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>
 
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
+    <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+  </agm-map>
+
+  <button mat-raised-button (click)="openBottomSheet()">Open file</button>
 
 
-  <ngx-gauge [thresholds]="thresholdConfig" 
-           [type]="gaugeType" 
-           [value]="gaugeValue" 
-           [label]="gaugeLabel"  
-           [append]="gaugeAppendText"
-           [thick] = "gaugethick"
-           [duration] = "gaugeDuration"
-           [cap] = "gaugeCap"
-           [max] = "gaugeMax"
-           [min] = "gaugeMin">
-</ngx-gauge>
 
 </div>

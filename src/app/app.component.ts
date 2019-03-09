@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {LatLng, LatLngLiteral} from '@agm/core';
+import { MatBottomSheet } from '@angular/material';
+import { BottomSheetComponent } from './bottomsheet.component';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +41,8 @@ export class AppComponent implements OnInit {
 
   myPosition: LatLngLiteral = null;
 
+  constructor(private bottomSheet: MatBottomSheet) {}
+
   ngOnInit(): void {
     navigator.geolocation.getCurrentPosition((position) => {
       this.myPosition = {
@@ -61,4 +65,13 @@ export class AppComponent implements OnInit {
     },50);
 
   }
+  
+  
+  openBottomSheet(): void {
+    this.bottomSheet.open(BottomSheetComponent);
+  }
+
 }
+
+
+

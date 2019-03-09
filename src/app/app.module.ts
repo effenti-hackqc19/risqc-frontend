@@ -4,12 +4,14 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
-import {MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import {MatFormFieldModule, MatIconModule, MatInputModule, MatBottomSheetModule, MatCardModule} from '@angular/material';
 import { NgxGaugeModule } from 'ngx-gauge';
+import { BottomSheetComponent } from './bottomsheet.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BottomSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -23,9 +25,11 @@ import { NgxGaugeModule } from 'ngx-gauge';
     // Material
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatBottomSheetModule,
+    MatCardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,BottomSheetComponent]
 })
 export class AppModule { }
