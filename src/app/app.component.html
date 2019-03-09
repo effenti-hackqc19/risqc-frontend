@@ -1,7 +1,9 @@
 <div id="appComponent">
   <h1 class="mat-display-1">RisQC</h1>
 
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
+
+    <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+
   </agm-map>
 </div>
