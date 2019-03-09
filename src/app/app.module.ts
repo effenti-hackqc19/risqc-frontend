@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
-import {MatFormFieldModule, MatIconModule, MatInputModule, MatBottomSheetModule, MatCardModule} from '@angular/material';
+import {MatFormFieldModule, MatIconModule, MatInputModule, MatBottomSheetModule, MatCardModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { BottomSheetComponent } from './bottomsheet.component';
 
@@ -30,6 +30,7 @@ import { BottomSheetComponent } from './bottomsheet.component';
     MatCardModule
   ],
   providers: [],
-  bootstrap: [AppComponent,BottomSheetComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [BottomSheetComponent]
 })
 export class AppModule { }

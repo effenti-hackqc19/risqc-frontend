@@ -1,20 +1,30 @@
+<style>
+        #container { text-align: center; }
+        #middle-element { display: inline-block; }
+</style>
+
 <div id="appComponent">
 
-    <h1>Teste</h1>
+    <h1 align="center">Informations Risk</h1>
 
-    <ngx-gauge 
-        [thresholds]="thresholdConfig" 
-        [type]="gaugeType" 
-        [value]="gaugeValue" 
-        [label]="gaugeLabel"  
-        [append]="gaugeAppendText"
-        [thick] = "gaugethick"
-        [duration] = "gaugeDuration"
-        [cap] = "gaugeCap"
-        [max] = "gaugeMax"
-        [min] = "gaugeMin">
-    </ngx-gauge>
+    <div id="container">
+        <ngx-gauge id="middle-element"
+            [thresholds]="thresholdConfig" 
+            [type]="gaugeType" 
+            [value]="gaugeValue" 
+            [label]="gaugeLabel"  
+            [append]="gaugeAppendText"
+            [thick] = "gaugethick"
+            [duration] = "gaugeDuration"
+            [cap] = "gaugeCap"
+            [max] = "gaugeMax"
+            [min] = "gaugeMin" >
+        </ngx-gauge>
+    </div>
 
-    <mat-card>Simple card</mat-card>
+    <mat-card *ngFor="let card of cards" style="margin-top:10px;">
+        <mat-icon>{{card.icon}}</mat-icon> 
+        {{card.message}}
+    </mat-card>
 
 </div>
