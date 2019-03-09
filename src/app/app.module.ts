@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
 import {MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/materi
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgxGaugeModule,
     // Google maps
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBBn-rCLWCK24YZm3OAxo2AtgULvxy7AeU'

@@ -11,6 +11,22 @@ export class AppComponent implements OnInit {
   lat = 46.816877;
   lng = -71.200460;
 
+  gaugeType = "arch";
+  gaugeValue = 0;
+  gaugeLabel = "Risk";
+  gaugeAppendText = "%";
+  gaugethick = 18;
+  gaugeDuration = 40;
+  gaugeCap = "round";
+  gaugeMax = 100;
+  gaugeMin = 0;
+
+  thresholdConfig = {
+    '0': {color: 'green'},
+    '40': {color: 'orange'},
+    '75.5': {color: 'red'}
+  };
+
   mapStyles = [
     {
       featureType: 'poi',
@@ -35,5 +51,14 @@ export class AppComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
+
+    let teste = setInterval(() => {
+      if(this.gaugeValue < 80)
+        this.gaugeValue +=2;
+      else
+        clearInterval(teste);
+
+    },50);
+
   }
 }
