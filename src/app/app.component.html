@@ -1,4 +1,7 @@
 <div id="appComponent">
   <h1 class="mat-display-1">RisQC</h1>
-  <small>Add logo here</small>
+
+  <agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
 </div>
