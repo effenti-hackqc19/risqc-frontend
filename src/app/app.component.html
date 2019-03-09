@@ -1,6 +1,12 @@
 <div id="appComponent">
   <h1 class="mat-display-1">RisQC</h1>
 
+  <mat-form-field appearance="fill">
+    <mat-label>Recherche d'adresse</mat-label>
+    <input matInput placeholder="Entrez votre adresse, code postal...">
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
 
     <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
