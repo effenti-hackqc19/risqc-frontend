@@ -1,19 +1,28 @@
 <div id="appComponent">
-  <h1 class="mat-display-1">RisQC</h1>
+  <h1 class="mat-display-1">RisQc</h1>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Recherche d'adresse</mat-label>
-    <input matInput placeholder="Entrez votre adresse, code postal...">
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>
+  <div class="search-section">
+    <mat-form-field appearance="outline">
+      <mat-label>Recherche d'adresse</mat-label>
+      <input #searchInput matInput placeholder="Entrez votre adresse, code postal..."
+             [(ngModel)]="searchQuery">
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
 
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
+    <!--<button mat-mini-fab (click)="onLocationSearch()">-->
+      <!--<mat-icon>search</mat-icon>-->
+    <!--</button>-->
+
+    <button mat-mini-fab matSuffix (click)="onMyLocation()">
+      <mat-icon>my_location</mat-icon>
+    </button>
+  </div>
+
+  <agm-map [latitude]="mapPosition.lat" [longitude]="mapPosition.lng" [zoom]="mapZoom" [styles]="mapStyles" (mapReady)="onMapReady($event)">
+
     <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+
+    <agm-polygon *ngFor="let zone of floodZones" [paths]="zone.GEOMETRIE"></agm-polygon>
   </agm-map>
-
   <button (click)="openBottomSheet()">Open file</button>
-
-
-
-
 </div>

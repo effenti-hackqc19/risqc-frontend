@@ -2,17 +2,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+
+  .search-section {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    mat-form-field {
+      flex: 1 1 auto;
+    }
+    button {
+      margin: 5px;
+      flex: 0 0 auto;
+    }
+  }
 
   h1 {
+    flex: 1 1 auto;
     margin-bottom: 15px;
   }
 
   mat-form-field {
-    width: 80%;
+    flex: 1 1 auto;
   }
 
   agm-map {
+    flex: 1 0 calc(100vh - 140px);
     width: 100%;
-    height: 80vh;
+    height: calc(100vh - 140px);
   }
 }

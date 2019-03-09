@@ -4,9 +4,12 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
-import {MatFormFieldModule, MatIconModule, MatInputModule, MatBottomSheetModule, MatCardModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { NgxGaugeModule } from 'ngx-gauge';
-import { BottomSheetComponent } from './bottomsheet.component';
+import {MatBottomSheetModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
+import {RisqcService} from './services/risqc.service';
+import {FormsModule} from '@angular/forms';
+import {BottomSheetComponent} from './bottomsheet.component';
+import {NgxGaugeModule} from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,8 @@ import { BottomSheetComponent } from './bottomsheet.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    HttpClientModule,
     NgxGaugeModule,
     // Google maps
     AgmCoreModule.forRoot({
@@ -23,13 +28,14 @@ import { BottomSheetComponent } from './bottomsheet.component';
     }),
 
     // Material
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule,
-    MatBottomSheetModule,
-    MatCardModule
+    MatInputModule
   ],
-  providers: [],
+  providers: [RisqcService],
   bootstrap: [AppComponent],
   entryComponents: [BottomSheetComponent]
 })
