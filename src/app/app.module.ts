@@ -7,6 +7,7 @@ import {AgmCoreModule} from '@agm/core';
 import {MatBottomSheetModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {RisqcService} from './services/risqc.service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {RisqcService} from './services/risqc.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     // Google maps
     AgmCoreModule.forRoot({

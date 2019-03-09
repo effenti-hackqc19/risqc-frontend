@@ -1,14 +1,20 @@
 <div id="appComponent">
   <h1 class="mat-display-1">RisQC</h1>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Recherche d'adresse</mat-label>
-    <input matInput placeholder="Entrez votre adresse, code postal...">
-    <button mat-mini-fab matSuffix>
-      <mat-icon>search</mat-icon>
+  <div class="search-section">
+    <mat-form-field appearance="fill">
+      <mat-label>Recherche d'adresse</mat-label>
+      <input matInput placeholder="Entrez votre adresse, code postal..." [(ngModel)]="searchQuery">
+      <mat-icon matPrefix>search</mat-icon>
+      <button mat-mini-fab matSuffix (click)="onLocationSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-mini-fab matSuffix (click)="onMyLocation()">
+      <mat-icon>my_location</mat-icon>
     </button>
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>
+  </div>
 
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
 

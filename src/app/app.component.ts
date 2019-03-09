@@ -26,9 +26,14 @@ export class AppComponent implements OnInit {
   myPosition: LatLngLiteral = null;
   floodZones: FloodZone[] = null;
 
+  searchQuery = '';
+
   constructor(private risqcService: RisqcService) {}
 
   ngOnInit(): void {
+  }
+
+  onMyLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.setPosition({
         lat: position.coords.latitude,
@@ -39,12 +44,16 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onLocationSearch() {
+
+  }
+
   setPosition(position: LatLngLiteral) {
     this.myPosition = position;
     this.lat = position.lat;
     this.lng = position.lng;
+
     this.risqcService.getFloodZones(position).subscribe((zones) => {
-      console.log(zones);
       this.floodZones = zones;
     });
   }
