@@ -1,22 +1,24 @@
 <div id="appComponent">
-  <h1 class="mat-display-1">RisQC</h1>
+  <h1 class="mat-display-1">RisQc</h1>
 
   <div class="search-section">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Recherche d'adresse</mat-label>
-      <input matInput placeholder="Entrez votre adresse, code postal..." [(ngModel)]="searchQuery">
+      <input #searchInput matInput placeholder="Entrez votre adresse, code postal..."
+             [(ngModel)]="searchQuery">
       <mat-icon matPrefix>search</mat-icon>
-      <button mat-mini-fab matSuffix (click)="onLocationSearch()">
-        <mat-icon>search</mat-icon>
-      </button>
     </mat-form-field>
+
+    <!--<button mat-mini-fab (click)="onLocationSearch()">-->
+      <!--<mat-icon>search</mat-icon>-->
+    <!--</button>-->
 
     <button mat-mini-fab matSuffix (click)="onMyLocation()">
       <mat-icon>my_location</mat-icon>
     </button>
   </div>
 
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="15" [styles]="mapStyles">
+  <agm-map [latitude]="mapPosition.lat" [longitude]="mapPosition.lng" [zoom]="mapZoom" [styles]="mapStyles" (mapReady)="onMapReady($event)">
 
     <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
 
