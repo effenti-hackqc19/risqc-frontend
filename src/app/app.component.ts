@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LatLng, LatLngLiteral} from '@agm/core';
+import {LatLngLiteral} from '@agm/core';
+import {RisqcService} from './services/risqc.service';
+import {FloodZone} from './models/flood-zone.model';
 
 @Component({
   selector: 'app-root',
@@ -22,18 +24,28 @@ export class AppComponent implements OnInit {
   ];
 
   myPosition: LatLngLiteral = null;
+  floodZones: FloodZone[] = null;
+
+  constructor(private risqcService: RisqcService) {}
 
   ngOnInit(): void {
     navigator.geolocation.getCurrentPosition((position) => {
-      this.myPosition = {
+      this.setPosition({
         lat: position.coords.latitude,
         lng: position.coords.longitude
-      };
-      this.lat = position.coords.latitude;
-      this.lng = position.coords.longitude;
-      console.log(this.myPosition);
+      });
     }, (error) => {
       console.log(error);
+    });
+  }
+
+  setPosition(position: LatLngLiteral) {
+    this.myPosition = position;
+    this.lat = position.lat;
+    this.lng = position.lng;
+    this.risqcService.getFloodZones(position).subscribe((zones) => {
+      console.log(zones);
+      this.floodZones = zones;
     });
   }
 }

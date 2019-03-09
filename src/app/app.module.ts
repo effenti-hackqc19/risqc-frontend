@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
 import {MatBottomSheetModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import {RisqcService} from './services/risqc.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatIconModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [RisqcService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,5 +14,6 @@
 
     <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
 
+    <agm-polygon *ngFor="let zone of floodZones" [paths]="zone.GEOMETRIE"></agm-polygon>
   </agm-map>
 </div>

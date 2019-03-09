@@ -1,7 +1,7 @@
 import {LatLngLiteral} from '@agm/core';
 
 export interface FloodZone {
-  id: number;
-  type: string;
-  polygon: LatLngLiteral[];
+  OBJECTID: number;
+  TYPE_ZONE: string;
+  GEOMETRIE: LatLngLiteral[];
 }
