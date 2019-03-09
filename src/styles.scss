@@ -1,5 +1,7 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/purple-green.css";
 
 html, body {
-  height: 100%;
+  height: calc(100% - 10px);
+  margin: 5px 0;
+  padding: 0;
 }
