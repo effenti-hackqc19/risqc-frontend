@@ -1,3 +1,7 @@
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+
 #appComponent {
   display: flex;
   flex-direction: column;
@@ -35,12 +39,21 @@
   }
 }
 
+mat-drawer {
+  @include for-phone-only {
+    width: 100vw;
+  }
+}
+
 #reportDrawer {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   width: 350px;
+  @include for-phone-only {
+    width: 100%;
+  }
 
   .cards-container {
     width: 100%;
@@ -65,5 +78,11 @@
 #toggleBtn{
   position: absolute;
   right: 0;
+  top: 0;
+}
+
+#drawerToggleBtn{
+  position: absolute;
+  left: 0;
   top: 0;
 }

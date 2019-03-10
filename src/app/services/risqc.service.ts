@@ -40,6 +40,7 @@ export class RisqcService {
       const risqData: RisqData = {
         zones: [],
         hydrants: [],
+        caserns: [],
         score: risqResponse.risk_score
       };
 
@@ -59,6 +60,13 @@ export class RisqcService {
       risqResponse.borns.forEach(born => {
         const latLngTuple = born.point.coordinates;
         risqData.hydrants.push({
+          location: {lng: latLngTuple[0], lat: latLngTuple[1]}
+        });
+      });
+
+      risqResponse.caserns.forEach(casern => {
+        const latLngTuple = casern.position_pont.coordinates;
+        risqData.caserns.push({
           location: {lng: latLngTuple[0], lat: latLngTuple[1]}
         });
       });

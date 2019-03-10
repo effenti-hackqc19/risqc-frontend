@@ -1,11 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {LatLngLiteral} from '@agm/core';
 import {RisqcService} from './services/risqc.service';
 import {GoogleMap} from '@agm/core/services/google-maps-types';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {WarningCard} from './models/warning-card.model';
 import {RisqData} from './models/risq-data.model';
 import {NgProgressComponent} from '@ngx-progressbar/core';
+import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
 
 declare var google: any;
 
@@ -14,7 +15,7 @@ declare var google: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput') searchInputRef: ElementRef;
   @ViewChild(NgProgressComponent) progressBar: NgProgressComponent;
 
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
   searchQuery = '';
 
   drawerOpened = false;
+  drawerMode = 'side';
 
   // Gauge
   gauge = {
@@ -61,9 +63,21 @@ export class AppComponent implements OnInit {
 
   cards: WarningCard[] = [];
 
-  constructor(private risqcService: RisqcService) {}
+  subscriptions: Subscription[] = [];
+
+  constructor(private risqcService: RisqcService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
+    this.breakpointObserver
+      .observe(['(max-width: 599px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.drawerMode = 'over';
+        } else {
+          this.drawerMode = 'side';
+        }
+      });
+
     const defaultBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(46.701786, -71.448702),
       new google.maps.LatLng(46.960671, -71.152094));
@@ -86,6 +100,10 @@ export class AppComponent implements OnInit {
         this.setPosition(latLng);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   onDrawerToggle(opened) {

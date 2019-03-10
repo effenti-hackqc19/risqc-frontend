@@ -1,5 +1,5 @@
 import {LatLngLiteral} from '@agm/core';
 
-export interface FireHydrant {
+export interface Casern {
   location: LatLngLiteral;
 }

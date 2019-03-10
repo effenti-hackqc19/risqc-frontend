@@ -17,6 +17,7 @@ import {RisqcService} from './services/risqc.service';
 import {FormsModule} from '@angular/forms';
 import {NgxGaugeModule} from 'ngx-gauge';
 import {NgProgressModule} from '@ngx-progressbar/core';
+import {LayoutModule} from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {NgProgressModule} from '@ngx-progressbar/core';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    LayoutModule,
     NgxGaugeModule,
     NgProgressModule,
     // Google maps

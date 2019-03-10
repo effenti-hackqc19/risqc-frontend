@@ -1,7 +1,10 @@
 <ng-progress #progressBar [spinner]="false"></ng-progress>
 <mat-drawer-container>
-  <mat-drawer #drawer mode="side" position="end" (openedChange)="onDrawerToggle($event)" [opened]="drawerOpened">
+  <mat-drawer #drawer [mode]="drawerMode" position="end" (openedChange)="onDrawerToggle($event)" [opened]="drawerOpened">
     <div id="reportDrawer">
+      <button id="drawerToggleBtn" (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon *ngIf="drawerOpened">arrow_forward</mat-icon>
+      </button>
       <h1 align="center">Rapport de risques</h1>
 
       <ngx-gauge [append]="gauge.appendText"
@@ -31,7 +34,6 @@
       <h1 class="mat-display-1">RisQC</h1>
       <button id="toggleBtn" (click)="drawer.toggle()" mat-icon-button>
         <mat-icon *ngIf="!drawerOpened">arrow_back</mat-icon>
-        <mat-icon *ngIf="drawerOpened">arrow_forward</mat-icon>
       </button>
       <div class="search-section">
         <button (click)="onMyLocation()" mat-mini-fab matSuffix matTooltip="Utiliser ma position">
@@ -68,7 +70,11 @@
                       [latitude]="hydrant.location.lat"
                       [longitude]="hydrant.location.lng"
                       iconUrl="/assets/img/hydrant.png">
-
+          </agm-marker>
+          <agm-marker *ngFor="let casern of risqData.caserns"
+                      [latitude]="casern.location.lat"
+                      [longitude]="casern.location.lng"
+                      iconUrl="/assets/img/firetruck.png">
           </agm-marker>
         </ng-container>
       </agm-map>
