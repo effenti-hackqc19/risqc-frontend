@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LatLngLiteral} from '@agm/core';
 import {RisqcService} from './services/risqc.service';
-import {FloodZone} from './models/flood-zone.model';
 import {GoogleMap} from '@agm/core/services/google-maps-types';
 import {Subject} from 'rxjs';
 import {WarningCard} from './models/warning-card.model';
 import {RisqData} from './models/risq-data.model';
+import {NgProgressComponent} from '@ngx-progressbar/core';
 
 declare var google: any;
 
@@ -16,6 +16,7 @@ declare var google: any;
 })
 export class AppComponent implements OnInit {
   @ViewChild('searchInput') searchInputRef: ElementRef;
+  @ViewChild(NgProgressComponent) progressBar: NgProgressComponent;
 
   mapRef: GoogleMap;
   mapStyles = [
@@ -120,6 +121,7 @@ export class AppComponent implements OnInit {
   }
 
   setPosition(position: LatLngLiteral) {
+    this.progressBar.start();
     this.risqData$.next(null);
     this.myPosition = position;
     this.mapPosition = position;
@@ -128,7 +130,12 @@ export class AppComponent implements OnInit {
 
     this.risqcService.getFloodZones(position).subscribe(risqData => {
       this.risqData$.next(risqData);
+      let score = risqData.score * 100;
+      score = Math.round(score * 10) / 10;
+      this.gauge.value = score;
+
       this.calculateRisk(risqData);
+      this.progressBar.complete();
     });
   }
 

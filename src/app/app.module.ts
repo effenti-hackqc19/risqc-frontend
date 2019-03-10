@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {RisqcService} from './services/risqc.service';
 import {FormsModule} from '@angular/forms';
 import {NgxGaugeModule} from 'ngx-gauge';
+import {NgProgressModule} from '@ngx-progressbar/core';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {NgxGaugeModule} from 'ngx-gauge';
     FormsModule,
     HttpClientModule,
     NgxGaugeModule,
+    NgProgressModule,
     // Google maps
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBBn-rCLWCK24YZm3OAxo2AtgULvxy7AeU'

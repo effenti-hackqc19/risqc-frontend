@@ -39,7 +39,8 @@ export class RisqcService {
     return this.http.get<RisqResponse>(environment.apiBaseUrl, {params}).pipe(map(risqResponse => {
       const risqData: RisqData = {
         zones: [],
-        hydrants: []
+        hydrants: [],
+        score: risqResponse.risk_score
       };
 
 

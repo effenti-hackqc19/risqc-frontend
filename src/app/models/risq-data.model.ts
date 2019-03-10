@@ -4,4 +4,5 @@ import {FloodZone} from './flood-zone.model';
 export interface RisqData {
   hydrants: FireHydrant[];
   zones: FloodZone[];
+  score: number;
 }
