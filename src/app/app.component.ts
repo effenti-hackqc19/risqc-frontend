@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   };
   mapZoom = 15;
   myPosition: LatLngLiteral = null;
-  floodZones: FloodZone[] = null;
+  floodZones: FloodZone[] = [];
 
   searchQuery = '';
 
@@ -94,7 +94,6 @@ export class AppComponent implements OnInit {
 
   onDrawerToggle(opened) {
     this.drawerOpened = opened;
-    console.log(this.drawerOpened);
   }
 
   onMyLocation() {
@@ -126,6 +125,7 @@ export class AppComponent implements OnInit {
   }
 
   setPosition(position: LatLngLiteral) {
+    this.floodZones = [];
     this.myPosition = position;
     this.mapPosition = position;
     this.mapZoom = 15;
