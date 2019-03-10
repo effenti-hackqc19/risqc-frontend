@@ -34,3 +34,36 @@
     height: calc(100vh - 140px);
   }
 }
+
+#reportDrawer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 350px;
+
+  .cards-container {
+    width: 100%;
+    mat-icon{
+      position:absolute;
+      top:0;
+      bottom:0;
+      margin:auto;
+      &.warn {
+        color: #f44336;
+      }
+      &.danger {
+        color: #ffeb3b;
+      }
+    }
+    .aligned-with-icon {
+      margin-left: 40px;
+    }
+  }
+}
+
+#toggleBtn{
+  position: absolute;
+  right: 0;
+  top: 0;
+}

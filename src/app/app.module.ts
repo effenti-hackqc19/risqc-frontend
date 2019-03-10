@@ -4,17 +4,23 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
-import {MatBottomSheetModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import {
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule, MatSidenavModule,
+  MatTooltipModule
+} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {RisqcService} from './services/risqc.service';
 import {FormsModule} from '@angular/forms';
-import {BottomSheetComponent} from './bottomsheet.component';
 import {NgxGaugeModule} from 'ngx-gauge';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BottomSheetComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +39,12 @@ import {NgxGaugeModule} from 'ngx-gauge';
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatSidenavModule,
+    MatTooltipModule
   ],
   providers: [RisqcService],
   bootstrap: [AppComponent],
-  entryComponents: [BottomSheetComponent]
+  entryComponents: []
 })
 export class AppModule { }

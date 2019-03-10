@@ -3,7 +3,6 @@ import {LatLngLiteral} from '@agm/core';
 import {RisqcService} from './services/risqc.service';
 import {FloodZone} from './models/flood-zone.model';
 import {GoogleMap} from '@agm/core/services/google-maps-types';
-import {BottomSheetComponent} from './bottomsheet.component';
 import {MatBottomSheet} from '@angular/material';
 
 declare var google: any;
@@ -36,6 +35,36 @@ export class AppComponent implements OnInit {
 
   searchQuery = '';
 
+  drawerOpened = false;
+
+  // Gauge
+  gauge = {
+    type: 'arch',
+    value: 80,
+    label: 'Risk',
+    appendText: '%',
+    thick: 18,
+    duration: 2000,
+    cap: 'round',
+    max: 100,
+    min: 0,
+  };
+
+  thresholdConfig = {
+    0: {color: 'green'},
+    40: {color: 'orange'},
+    75.5: {color: 'red'}
+  };
+
+  cards = [
+    {icon: 'warning', message: 'teste1'},
+    {icon: 'warning', message: 'teste2'},
+    {icon: 'error_outline', message: 'teste3'},
+    {icon: 'error_outline', message: 'teste4'},
+    {icon: 'error_outline', message: 'teste4'},
+    {icon: 'error_outline', message: 'teste4'}
+  ];
+
   constructor(private risqcService: RisqcService, private bottomSheet: MatBottomSheet) {}
 
   ngOnInit(): void {
@@ -63,12 +92,19 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onDrawerToggle(opened) {
+    this.drawerOpened = opened;
+    console.log(this.drawerOpened);
+  }
+
   onMyLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
-      this.setPosition({
+      const myPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
-      });
+      };
+      this.geocodeLatLng(myPosition);
+      this.setPosition(myPosition);
     }, (error) => {
       console.log(error);
     });
@@ -78,8 +114,15 @@ export class AppComponent implements OnInit {
     this.mapRef = map;
   }
 
-  openBottomSheet(): void {
-    this.bottomSheet.open(BottomSheetComponent);
+  geocodeLatLng(latLng: LatLngLiteral) {
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({location: latLng}, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.searchQuery = results[0].formatted_address;
+        }
+      }
+    });
   }
 
   setPosition(position: LatLngLiteral) {

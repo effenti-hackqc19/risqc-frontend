@@ -1,28 +1,60 @@
-<div id="appComponent">
-  <h1 class="mat-display-1">RisQc</h1>
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" position="end" (openedChange)="onDrawerToggle($event)">
+    <div id="reportDrawer">
+      <h1 align="center">Rapport de risques</h1>
 
-  <div class="search-section">
-    <mat-form-field appearance="outline">
-      <mat-label>Recherche d'adresse</mat-label>
-      <input #searchInput matInput placeholder="Entrez votre adresse, code postal..."
-             [(ngModel)]="searchQuery">
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
+      <ngx-gauge [append]="gauge.appendText"
+                 [cap] = "gauge.cap"
+                 [duration] = "gauge.duration"
+                 [label]="gauge.label"
+                 [max] = "gauge.max"
+                 [min] = "gauge.min"
+                 [thick] = "gauge.thick"
+                 [thresholds]="thresholdConfig"
+                 [type]="gauge.type"
+                 [value]="gauge.value"
+                 id="middle-element" >
+      </ngx-gauge>
 
-    <!--<button mat-mini-fab (click)="onLocationSearch()">-->
-      <!--<mat-icon>search</mat-icon>-->
-    <!--</button>-->
+      <div class="cards-container">
+        <mat-card *ngFor="let card of cards" style="margin-top:10px;">
+          <div>
+            <mat-icon class="warn">{{card.icon}}</mat-icon><span class="aligned-with-icon">{{card.message}}</span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div id="appComponent">
+      <h1 class="mat-display-1">RisQc</h1>
+      <button id="toggleBtn" (click)="drawer.toggle()" mat-icon-button>
+        <mat-icon *ngIf="!drawerOpened">arrow_back</mat-icon>
+        <mat-icon *ngIf="drawerOpened">arrow_forward</mat-icon>
+      </button>
+      <div class="search-section">
+        <button (click)="onMyLocation()" mat-mini-fab matSuffix matTooltip="Utiliser ma position">
+          <mat-icon>my_location</mat-icon>
+        </button>
 
-    <button mat-mini-fab matSuffix (click)="onMyLocation()">
-      <mat-icon>my_location</mat-icon>
-    </button>
-  </div>
+        <mat-form-field appearance="outline">
+          <mat-label>Recherche d'adresse</mat-label>
+          <input #searchInput [(ngModel)]="searchQuery" matInput
+                 placeholder="Entrez votre adresse, code postal...">
+          <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
 
-  <agm-map [latitude]="mapPosition.lat" [longitude]="mapPosition.lng" [zoom]="mapZoom" [styles]="mapStyles" (mapReady)="onMapReady($event)">
+        <!--<button mat-mini-fab (click)="onLocationSearch()">-->
+        <!--<mat-icon>search</mat-icon>-->
+        <!--</button>-->
+      </div>
 
-    <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+      <agm-map (mapReady)="onMapReady($event)" [latitude]="mapPosition.lat" [longitude]="mapPosition.lng" [styles]="mapStyles" [zoom]="mapZoom">
 
-    <agm-polygon *ngFor="let zone of floodZones" [paths]="zone.GEOMETRIE"></agm-polygon>
-  </agm-map>
-  <button (click)="openBottomSheet()">Open file</button>
-</div>
+        <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+
+        <agm-polygon *ngFor="let zone of floodZones" [paths]="zone.GEOMETRIE" [strokeWeight]="1" fillColor="#29b6f6" strokeColor="#29b6f6"></agm-polygon>
+      </agm-map>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
