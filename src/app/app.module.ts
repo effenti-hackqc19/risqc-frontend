@@ -5,7 +5,6 @@ import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AgmCoreModule} from '@agm/core';
 import {
-  MatBottomSheetModule,
   MatButtonModule,
   MatCardModule,
   MatFormFieldModule,
@@ -34,7 +33,6 @@ import {NgxGaugeModule} from 'ngx-gauge';
     }),
 
     // Material
-    MatBottomSheetModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

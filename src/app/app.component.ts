@@ -3,7 +3,9 @@ import {LatLngLiteral} from '@agm/core';
 import {RisqcService} from './services/risqc.service';
 import {FloodZone} from './models/flood-zone.model';
 import {GoogleMap} from '@agm/core/services/google-maps-types';
-import {MatBottomSheet} from '@angular/material';
+import {Subject} from 'rxjs';
+import {WarningCard} from './models/warning-card.model';
+import {RisqData} from './models/risq-data.model';
 
 declare var google: any;
 
@@ -29,9 +31,9 @@ export class AppComponent implements OnInit {
     lat: 46.816877,
     lng: -71.200460
   };
-  mapZoom = 15;
+  mapZoom = 14;
   myPosition: LatLngLiteral = null;
-  floodZones: FloodZone[] = [];
+  risqData$: Subject<RisqData> = new Subject<RisqData>();
 
   searchQuery = '';
 
@@ -40,8 +42,8 @@ export class AppComponent implements OnInit {
   // Gauge
   gauge = {
     type: 'arch',
-    value: 80,
-    label: 'Risk',
+    value: 0,
+    label: 'Risque',
     appendText: '%',
     thick: 18,
     duration: 2000,
@@ -56,21 +58,14 @@ export class AppComponent implements OnInit {
     75.5: {color: 'red'}
   };
 
-  cards = [
-    {icon: 'warning', message: 'teste1'},
-    {icon: 'warning', message: 'teste2'},
-    {icon: 'error_outline', message: 'teste3'},
-    {icon: 'error_outline', message: 'teste4'},
-    {icon: 'error_outline', message: 'teste4'},
-    {icon: 'error_outline', message: 'teste4'}
-  ];
+  cards: WarningCard[] = [];
 
-  constructor(private risqcService: RisqcService, private bottomSheet: MatBottomSheet) {}
+  constructor(private risqcService: RisqcService) {}
 
   ngOnInit(): void {
     const defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(45.342521, -73.889893),
-      new google.maps.LatLng(47.067651, -70.862224));
+      new google.maps.LatLng(46.701786, -71.448702),
+      new google.maps.LatLng(46.960671, -71.152094));
 
     const options = {
       bounds: defaultBounds,
@@ -125,14 +120,23 @@ export class AppComponent implements OnInit {
   }
 
   setPosition(position: LatLngLiteral) {
-    this.floodZones = [];
+    this.risqData$.next(null);
     this.myPosition = position;
     this.mapPosition = position;
-    this.mapZoom = 15;
+    this.mapZoom = 16;
     this.mapRef.setCenter(this.mapPosition);
 
-    this.risqcService.getFloodZones(position).subscribe((zones) => {
-      this.floodZones = zones;
+    this.risqcService.getFloodZones(position).subscribe(risqData => {
+      this.risqData$.next(risqData);
+      this.calculateRisk(risqData);
     });
+  }
+
+  calculateRisk(data: RisqData) {
+    this.drawerOpened = true;
+    // const score = 0;
+    // if (zones.length) {
+    //   const closestZone = zones[0].distance;
+    // }
   }
 }

@@ -1,5 +1,5 @@
 <mat-drawer-container>
-  <mat-drawer #drawer mode="side" position="end" (openedChange)="onDrawerToggle($event)">
+  <mat-drawer #drawer mode="side" position="end" (openedChange)="onDrawerToggle($event)" [opened]="drawerOpened">
     <div id="reportDrawer">
       <h1 align="center">Rapport de risques</h1>
 
@@ -27,7 +27,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <div id="appComponent">
-      <h1 class="mat-display-1">RisQc</h1>
+      <h1 class="mat-display-1">RisQC</h1>
       <button id="toggleBtn" (click)="drawer.toggle()" mat-icon-button>
         <mat-icon *ngIf="!drawerOpened">arrow_back</mat-icon>
         <mat-icon *ngIf="drawerOpened">arrow_forward</mat-icon>
@@ -51,9 +51,25 @@
 
       <agm-map (mapReady)="onMapReady($event)" [latitude]="mapPosition.lat" [longitude]="mapPosition.lng" [styles]="mapStyles" [zoom]="mapZoom">
 
-        <agm-marker *ngIf="myPosition" [latitude]="myPosition.lat" [longitude]="myPosition.lng"></agm-marker>
+        <agm-marker *ngIf="myPosition"
+                    [latitude]="myPosition.lat"
+                    [longitude]="myPosition.lng"></agm-marker>
 
-        <agm-polygon *ngFor="let zone of floodZones" [paths]="zone.polygon" [strokeWeight]="1" [fillColor]="zone.color" [strokeColor]="zone.color"></agm-polygon>
+        <ng-container *ngIf="(risqData$ | async) as risqData">
+          <agm-polygon *ngFor="let zone of risqData.zones"
+                       [paths]="zone.polygon"
+                       [strokeWeight]="1"
+                       [fillColor]="zone.color"
+                       [strokeColor]="zone.color">
+
+          </agm-polygon>
+          <agm-marker *ngFor="let hydrant of risqData.hydrants"
+                      [latitude]="hydrant.location.lat"
+                      [longitude]="hydrant.location.lng"
+                      iconUrl="/assets/img/hydrant.png">
+
+          </agm-marker>
+        </ng-container>
       </agm-map>
     </div>
   </mat-drawer-content>
