@@ -33,7 +33,7 @@ import {LayoutModule} from '@angular/cdk/layout';
     NgProgressModule,
     // Google maps
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBBn-rCLWCK24YZm3OAxo2AtgULvxy7AeU'
+      apiKey: '<GOOGLE_MAPS_KEY>'
     }),
 
     // Material
