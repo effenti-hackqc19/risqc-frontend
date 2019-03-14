@@ -20,10 +20,10 @@
                  id="middle-element" >
       </ngx-gauge>
 
-      <div class="cards-container">
-        <mat-card *ngFor="let card of cards" style="margin-top:10px;">
+      <div class="cards-container" *ngIf="(risqData$ | async) as risqData">
+        <mat-card *ngFor="let card of risqData.messages" style="margin-top:10px;">
           <div>
-            <mat-icon class="warn">{{card.icon}}</mat-icon><span class="aligned-with-icon">{{card.message}}</span>
+            <mat-icon [style.color]="card.color">{{card.icon}}</mat-icon><div class="aligned-with-icon">{{card.message}}</div>
           </div>
         </mat-card>
       </div>

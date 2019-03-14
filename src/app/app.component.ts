@@ -3,7 +3,6 @@ import {LatLngLiteral} from '@agm/core';
 import {RisqcService} from './services/risqc.service';
 import {GoogleMap} from '@agm/core/services/google-maps-types';
 import {Subject, Subscription} from 'rxjs';
-import {WarningCard} from './models/warning-card.model';
 import {RisqData} from './models/risq-data.model';
 import {NgProgressComponent} from '@ngx-progressbar/core';
 import {BreakpointObserver, BreakpointState} from '@angular/cdk/layout';
@@ -60,8 +59,6 @@ export class AppComponent implements OnInit, OnDestroy {
     40: {color: 'orange'},
     75.5: {color: 'red'}
   };
-
-  cards: WarningCard[] = [];
 
   subscriptions: Subscription[] = [];
 

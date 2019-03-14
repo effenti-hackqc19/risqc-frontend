@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {LatLngLiteral} from '@agm/core';
-import {FloodZone} from '../models/flood-zone.model';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {RisqResponse} from '../models/risq-response.model';
 import {RisqData} from '../models/risq-data.model';
+import {Message} from '../models/message.model';
 
 @Injectable()
 export class RisqcService {
@@ -33,11 +33,21 @@ export class RisqcService {
       })};
   }
 
+  private static processRisk(risk) {
+    const card: Message = {
+      message: risk.message,
+      color: '#ff5722',
+      icon: 'warning'
+    };
+    return card;
+  }
+
   getFloodZones(position: LatLngLiteral): Observable<RisqData> {
     const params: HttpParams = (new HttpParams()).set('lat', `${position.lat}`).set('lng', `${position.lng}`);
 
     return this.http.get<RisqResponse>(environment.apiBaseUrl, {params}).pipe(map(risqResponse => {
       const risqData: RisqData = {
+        messages: [],
         zones: [],
         hydrants: [],
         caserns: [],
@@ -70,6 +80,34 @@ export class RisqcService {
           location: {lng: latLngTuple[0], lat: latLngTuple[1]}
         });
       });
+
+      console.log(risqResponse.risk_details);
+      risqData.messages.push(RisqcService.processRisk(risqResponse.risk_details.flood_risks));
+      risqData.messages.push(RisqcService.processRisk(risqResponse.risk_details.casern_risk));
+      risqData.messages.push(RisqcService.processRisk(risqResponse.risk_details.born_risks));
+      //
+      //
+      // risqResponse.risk_details.forEach(message => {
+      //   const card: Message = {
+      //     message: message.message,
+      //     color: '',
+      //     icon: ''
+      //   };
+      //   switch (message.valeur) {
+      //     case 'high':
+      //       card.color = 'red';
+      //       card.icon = '#c62828';
+      //       break;
+      //     case 'medium':
+      //       card.icon = 'orange';
+      //       card.color = '#ff5722';
+      //       break;
+      //     case 'low':
+      //       card.icon = 'green';
+      //       card.color = 'green';
+      //   }
+      //   risqData.messages.push(card);
+      // });
       return risqData;
     }));
   }
